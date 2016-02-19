@@ -29,10 +29,27 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+		        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
 		        <li><a href="#">About</a></li>
 		        <li><a href="#">Contact</a></li>
 		      </ul>
+		      <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        <li id="username-show">
+                            {{ Auth::user()->name }}
+                        </li>
+                        <li>
+                            <a href="{{ url('/logout') }}">
+                                <i class="fa fa-btn fa-sign-out"></i>Logout
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+		      
 
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->

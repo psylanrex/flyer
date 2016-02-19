@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FlyersController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
     
     public function index() {
     	return view('pages.create');
