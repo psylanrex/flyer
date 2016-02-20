@@ -17,7 +17,7 @@
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
 		        <span class="sr-only">Toggle navigation</span>
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
@@ -27,7 +27,7 @@
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		    <div class="collapse navbar-collapse" id="navbar-collapse">
 		      <ul class="nav navbar-nav">
 		        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
 		        <li><a href="#">About</a></li>
@@ -35,18 +35,19 @@
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
-                    @else
-                        <li id="username-show">
-                            {{ Auth::user()->name }}
+                    @if (Auth::user())
+                    	<li>
+                            <p class="navbar-text" id="show-username">Hello, {{ Auth::user()->name }}</p>
                         </li>
                         <li>
                             <a href="{{ url('/logout') }}">
                                 <i class="fa fa-btn fa-sign-out"></i>Logout
                             </a>
                         </li>
+                        
+                    @else
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
                     @endif
                 </ul>
 		      

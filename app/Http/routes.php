@@ -1,20 +1,19 @@
 <?php
 
-Route::get('/', function() {
-	return view('pages.home');
-});
+Route::get('/', 'PagesController@home');
 
 // Pages for flyers route
-Route::group(['middleware' => ['web']], function() {
+// Route::group(['middleware' => ['web']], function() {
+// 	Route::resource('flyers', 'FlyersController');
+// });
+
+
+
+
+Route::group(['middleware' => ['web']], function () {
+
 	Route::resource('flyers', 'FlyersController');
-});
 
-
-Route::get('{zip}/{street}', 'FlyersController@show');
-
-Route::post('{zip}/{street}/photos', 'FlyersController@addPhoto');
-
-Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
@@ -23,3 +22,4 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::post('{zip}/{street}/photos', 'FlyersController@addPhoto');
 });
+

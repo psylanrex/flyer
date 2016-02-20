@@ -5755,9 +5755,7 @@ button.close {
 body {
   padding-top: 70px; }
 
-#username-show {
-  color: white;
-  padding-top: 2px;
-  margin-top: 12px; }
+#show-username {
+  color: white; }
 
 /*# sourceMappingURL=app.css.map */
