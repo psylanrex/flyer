@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\FlyerRequest;
+use App\Http\Requests\AddPhotoRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Utilities\Country;
 use App\Flyer;
@@ -39,29 +40,26 @@ class FlyersController extends Controller
     	return redirect()->back();
     }
 
-    public function addPhoto($zip, $street, Request $request) {
-        $this->validate($request, [
-            'file' => 'required|mimes:jpg,jpeg,png,bmp']);
+    public function addPhoto($zip, $street, AddPhotoRequest $request) {
+        
 
         $flyer = Flyer::locatedAt($zip, $street);
 
-        if (!$flyer->ownedBy(\Auth::user())) {
-            if ($request->ajax()) {
-                return response(['message' => 'No way.'], 403);
-            }
-
-            flash('No way.');
-
-            return redirect('/');
-        }
-
-
+        
         $file = $request->file('file');
         
-        // $photo = Photo::fromForm($request->file('file'));
         $photo = $this->makePhoto($file);
         $flyer->savePhoto($photo);
 
+    }
+
+    protected function unauthorized() {
+        if ($request->ajax()) {
+                return response(['message' => 'No way.'], 403);
+            }
+            flash('No way.');
+
+            return redirect('/');
     }
 
     protected function makePhoto(UploadedFile $file) {
